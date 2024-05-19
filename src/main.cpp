@@ -1,8 +1,28 @@
 #include <iostream>
 #include "functions.hpp"
 
+
+
+// struct converter {
+//     const std::string& x;
+//     template <typename T> operator T() { return 0;}
+// };
+
+// template <> converter::operator int() { return stoi(x); }
+// template <> converter::operator double() { return stod(x); }
+// converter stringTo(const std::string& x) { return {x}; }
+
+
 /** Create .so lib */
 int main(){
+
+    // std::string s{"1.23"};
+    // int x = stringTo(s);
+    // double y = stringTo(s);
+    // std::cout << x << " " << y << std::endl;
+
+
+
     std::string str(" grape ");
     str = ufn::trim(str);
 
@@ -23,7 +43,7 @@ int main(){
 
 
     std::cout<<
-        "num " << ufn::toInt("99999999999999999999999999999999999999999999999")
+        "num " << ufn::strToUnsignedLongLong("9999999999999999999999999999999")
     << std::endl;
     if(ufn::has_error_in_int_function){
         std::cout<<

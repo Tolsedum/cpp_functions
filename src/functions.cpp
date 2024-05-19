@@ -129,12 +129,47 @@ namespace hashes{
 
 namespace ufn{
 
-    int toInt(const std::string &number){
+    /**
+     * Check upper register in string
+    */
+    // void createFileAndDirrs(
+    //     std::string file_path, std::string content = ""
+    // ){
+    //     bool file_is_created = false;
+    //     std::filesystem::path path{file_path};
+    //     if(!std::filesystem::is_directory(path.parent_path())){
+    //         std::filesystem::create_directories(path.parent_path());
+    //     }
+    //     if(!std::filesystem::is_regular_file(path)){
+    //         std::ofstream ofs(path);
+    //         if(ofs.is_open()){
+    //             if(!content.empty()){
+    //                 ofs << content;
+    //             }
+    //             ofs.close();
+    //             file_is_created = true;
+    //         }
+    //     }
+    // }
+
+
+    template <> Converter::operator int() { return std::stoi(x); }
+    template <> Converter::operator double() { return std::stod(x); }
+    template <> Converter::operator float() { return std::stof(x); }
+    template <> Converter::operator long() { return std::stol(x); }
+    template <> Converter::operator long double() { return std::stold(x); }
+    template <> Converter::operator long long() { return std::stoll(x); }
+    template <> Converter::operator unsigned long() { return std::stoul(x); }
+    template <> Converter::operator unsigned long long() { return std::stoull(x); }
+    inline Converter stringTo(const std::string& x) { return {x}; }
+
+    template<typename Numeric>
+    Numeric strToNumeric(const std::string &numeric){
         has_error_in_int_function = false;
         error_in_int_function = "";
-        int num = 0;
+        Numeric num = 0;
         try{
-            num = std::stoi(number);
+            num = stringTo(numeric);
         }catch(const std::invalid_argument &e){
             has_error_in_int_function = true;
             error_in_int_function.append("Invalid argument: ");
@@ -150,6 +185,31 @@ namespace ufn{
         return num;
     }
 
+    int tostrToInt(const std::string &number){
+        return strToNumeric<int>(number);
+    }
+    double strToDouble(const std::string &number){
+        return strToNumeric<double>(number);
+    }
+    float strToFloat(const std::string &number){
+        return strToNumeric<float>(number);
+    }
+    long strToLong(const std::string &number){
+        return strToNumeric<long>(number);
+    }
+    long double strToLongDouble(const std::string &number){
+        return strToNumeric<long double>(number);
+    }
+    long long strToLongLong(const std::string &number){
+        return strToNumeric<long long>(number);
+    }
+    unsigned long strToUnsignedLong(const std::string &number){
+        return strToNumeric<unsigned long>(number);
+    }
+    unsigned long long strToUnsignedLongLong(const std::string &number){
+        return strToNumeric<unsigned long long>(number);
+    }
+
     std::string deleteComment(
         const std::string &str
     ){
@@ -160,17 +220,15 @@ namespace ufn{
         return ret_value;
     }
 
-    /**
-         * Check upper register in string
-        */
-    bool is_upper_register(std::string line){
-            for(auto const& var : line){
-                if(std::isupper(var)) return true;
-            }
-            return false;
+    bool hasUpperRegister(std::string line){
+        for (auto const &var : line){
+            if (std::isupper(var))
+                return true;
+        }
+        return false;
     }
 
-    std::string to_lower(const std::string &s){
+    std::string toLower(const std::string &s){
             std::string new_s;
             for(auto const& var : s){
                 new_s.append(1, std::tolower(var));
@@ -227,7 +285,7 @@ namespace ufn{
         return ret_value;
     }
 
-    std::string md5 (std::string in){
+    std::string md5(std::string in){
         return hashes::getMD5String(in);
     }
 
