@@ -7,10 +7,23 @@
 #include <fstream>
 #include <iterator>
 #include <ctime>
+#include <cmath>
+#include <cstring>
 #include <boost/uuid/detail/md5.hpp>
 #include <boost/algorithm/hex.hpp>
 #include <boost/algorithm/string.hpp>
-#include "hashes.hpp"
+
+
+namespace hashes{
+	typedef union uwb {
+		unsigned w;
+		unsigned char b[4];
+	} MD5union;
+
+	typedef unsigned DigestArray[4];
+	typedef unsigned(*DgstFctn)(unsigned a[]);
+	inline std::string GetMD5String(std::string msg);
+}
 
 /**
  * Universal functions
@@ -29,8 +42,8 @@ namespace ufn{
      * @author Tolsedum
      * @version 1.0
     */
-    void trim(std::string &patient, char pattern = ' ');
-    void trim(std::string &patient, std::vector<char> pattern);
+    std::string trim(std::string patient, char pattern = ' ');
+    std::string trim(std::string patient, std::vector<char> pattern);
 
     /**
      * String to int
