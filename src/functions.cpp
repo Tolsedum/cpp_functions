@@ -89,7 +89,14 @@ namespace hashes{
                 m = M[p]; o = O[p];
                 for (q = 0; q<16; q++) {
                     g = (m*q + o) % 16;
-                    f = abcd[1] + rol(abcd[0] + fctn(abcd) + k[q + 16 * p] + mm.w[g], rotn[q % 4]);
+                    f = abcd[1]
+                        + rol(
+                            abcd[0]
+                                + fctn(abcd)
+                                + k[q + 16 * p]
+                                + mm.w[g],
+                            rotn[q % 4]
+                        );
 
                     abcd[0] = abcd[3];
                     abcd[3] = abcd[2];
@@ -104,7 +111,7 @@ namespace hashes{
         return h;
     }
 
-    std::string GetMD5String(std::string msg) {
+    std::string getMD5String(std::string msg) {
         std::string str;
         int j;
         unsigned *d = MD5Hash(msg);
@@ -121,14 +128,25 @@ namespace hashes{
 }
 
 namespace ufn{
+
     int toInt(const std::string &number){
+        has_error_in_int_function = false;
+        error_in_int_function = "";
         int num = 0;
         try{
             num = std::stoi(number);
+            std::cout<< "num: " <<num << std::endl;
         }catch(const std::invalid_argument &e){
-            //
+            has_error_in_int_function = true;
+            error_in_int_function.append("Invalid argument: ");
+            error_in_int_function.append(e.what());
         }catch(const std::out_of_range &e){
-            //
+            has_error_in_int_function = true;
+            error_in_int_function.append("Out of range: ");
+            error_in_int_function.append(e.what());
+        }catch(...){
+            has_error_in_int_function = true;
+            error_in_int_function = "Unexpected error";
         }
         return num;
     }
@@ -211,7 +229,7 @@ namespace ufn{
     }
 
     std::string md5 (std::string in){
-        return hashes::GetMD5String(in);
+        return hashes::getMD5String(in);
     }
 
     std::string currentDateTime(std::string format) {

@@ -76,7 +76,8 @@
         "ostream": "cpp",
         "source_location": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "variant": "cpp"
     },
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,

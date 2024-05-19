@@ -22,7 +22,7 @@ namespace hashes{
 
 	typedef unsigned DigestArray[4];
 	typedef unsigned(*DgstFctn)(unsigned a[]);
-	inline std::string GetMD5String(std::string msg);
+	inline std::string getMD5String(std::string msg);
 }
 
 /**
@@ -33,9 +33,11 @@ namespace hashes{
 namespace ufn{
     /**
      * Check upper register in string
+     * @author Tolsedum
+     * @version 1.0
     */
    bool is_upper_register(std::string line);
-   std::string to_lower(const std::string &s);
+   std::string toLower(const std::string &s);
 
     /**
      * Delete pattern by both sides
@@ -51,6 +53,8 @@ namespace ufn{
      * @version 1.0
     */
     int toInt(const std::string &number);
+    inline std::string error_in_int_function = "";
+    inline bool has_error_in_int_function = false;
 
     /**
      * exploed string to vector conteiner
@@ -88,6 +92,11 @@ namespace ufn{
     */
     std::string md5 (std::string in);
 
+    /**
+     * Get the currant date using the format
+     * @author Tolsedum
+     * @version 1.0
+    */
     std::string currentDateTime(std::string format = "%d-%m-%Y %X");
 
     /**
@@ -111,7 +120,7 @@ namespace ufn{
      * @version 1.0
     */
     template<class TConteiner, class TValue>
-    bool in_array (TConteiner array, TValue value){
+    bool inArray (TConteiner array, TValue value){
         return std::find(array.begin(), array.end(), value) != array.end();
     }
  };

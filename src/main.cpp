@@ -20,4 +20,17 @@ int main(){
     }
     std::cout<< "md5 of 'php': " << result <<std::endl;
     std::cout<< "md5 of 'ufn': " << ufn::md5(str) << std::endl;
+
+
+    std::cout<<
+        "num " << ufn::toInt("99999999999999999999999999999999999999999999999")
+    << std::endl;
+    if(ufn::has_error_in_int_function){
+        std::cout<<
+            "has_error_in_int_function: "<< ufn::has_error_in_int_function
+            << std::endl <<
+            "error_in_int_function: " << ufn::error_in_int_function
+        << std::endl;
+    }
+
 }
