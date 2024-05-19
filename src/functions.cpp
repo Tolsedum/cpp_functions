@@ -135,7 +135,6 @@ namespace ufn{
         int num = 0;
         try{
             num = std::stoi(number);
-            std::cout<< "num: " <<num << std::endl;
         }catch(const std::invalid_argument &e){
             has_error_in_int_function = true;
             error_in_int_function.append("Invalid argument: ");
