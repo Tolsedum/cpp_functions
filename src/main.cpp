@@ -1,28 +1,7 @@
 #include <iostream>
 #include "functions.hpp"
 
-
-
-// struct converter {
-//     const std::string& x;
-//     template <typename T> operator T() { return 0;}
-// };
-
-// template <> converter::operator int() { return stoi(x); }
-// template <> converter::operator double() { return stod(x); }
-// converter stringTo(const std::string& x) { return {x}; }
-
-
-/** Create .so lib */
-int main(){
-
-    // std::string s{"1.23"};
-    // int x = stringTo(s);
-    // double y = stringTo(s);
-    // std::cout << x << " " << y << std::endl;
-
-
-
+void trim_and_md5_test(){
     std::string str(" grape ");
     str = ufn::trim(str);
 
@@ -38,19 +17,26 @@ int main(){
         pclose(fp);
         fp = NULL;
     }
-    std::cout<< "md5 of 'php': " << result <<std::endl;
-    std::cout<< "md5 of 'ufn': " << ufn::md5(str) << std::endl;
+    std::cout<< "is rite: " << (result == ufn::md5(str)) <<std::endl;
 
 
     std::cout<<
-        "num " << ufn::strToUnsignedLongLong("9999999999999999999999999999999")
+        "num " << ufn::strToInt("-9") << std::endl<<
+            ufn::strToDouble("-9")
     << std::endl;
-    if(ufn::has_error_in_int_function){
+    if(ufn::has_error_in_converter_function){
         std::cout<<
-            "has_error_in_int_function: "<< ufn::has_error_in_int_function
+            "has_error_in_converter_function: "<< ufn::has_error_in_converter_function
             << std::endl <<
-            "error_in_int_function: " << ufn::error_in_int_function
+            "error_in_converter_function: " << ufn::error_in_converter_function
         << std::endl;
     }
+}
 
+/** Create .so lib */
+int main(){
+    if(!ufn::createFileAndDirrs("test.test", "content")){
+        std::cout<< "error_in_function_create_file_and_dir: " << ufn::error_in_function_create_file_and_dir.what() << std::endl;
+    }
+    return 0;
 }

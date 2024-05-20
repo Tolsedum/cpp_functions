@@ -32,12 +32,15 @@ namespace hashes{
 */
 namespace ufn{
 
+    inline std::runtime_error error_in_function_create_file_and_dir("");
     /**
      * @brief Сreate a file with parent directories
      * @author Tolsedum
      * @param path
+     * @return If file is created then true else false and description
+     *      in var error_in_function_create_file_and_dir
      */
-    // void createFileAndDirrs(std::string path, std::string content = "");
+    bool createFileAndDirrs(std::string path, std::string content = "");
 
     /**
      * Check upper register in string
@@ -60,30 +63,92 @@ namespace ufn{
     std::string trim(std::string patient, std::vector<char> pattern);
 
 
-    inline std::string error_in_int_function = "";
-    inline bool has_error_in_int_function = false;
-
     struct Converter {
         const std::string &x;
         template <typename Numeric> operator Numeric() { return 0;}
     };
 
+    inline std::string error_in_converter_function = "";
+    inline bool has_error_in_converter_function = false;
     /**
-     * @brief String to int, fload, double ... .
+     * @brief String to int
      *      If has error then in has_error_in_int_function
      *      set true and error description in hear error_in_int_function.
      *
-     * @param number
+     * @param number number by string format
      * @return int
      * @author Tolsedum
      */
     int strToInt(const std::string &number);
+    /**
+     * @brief String to double
+     *      If has error then in has_error_in_int_function
+     *      set true and error description in hear error_in_int_function.
+     *
+     * @param number number by string format
+     * @return double
+     * @author Tolsedum
+     */
     double strToDouble(const std::string &number);
+    /**
+     * @brief String to float
+     *      If has error then in has_error_in_int_function
+     *      set true and error description in hear error_in_int_function.
+     *
+     * @param number number by string format
+     * @return float
+     * @author Tolsedum
+     */
     float strToFloat(const std::string &number);
+    /**
+     * @brief String to long
+     *      If has error then in has_error_in_int_function
+     *      set true and error description in hear error_in_int_function.
+     *
+     * @param number number by string format
+     * @return long
+     * @author Tolsedum
+     */
     long strToLong(const std::string &number);
+    /**
+     * @brief String to long double
+     *      If has error then in has_error_in_int_function
+     *      set true and error description in hear error_in_int_function.
+     *
+     * @param number number by string format
+     * @return long double
+     * @author Tolsedum
+     */
     long double strToLongDouble(const std::string &number);
+    /**
+     * @brief String to long long
+     *      If has error then in has_error_in_int_function
+     *      set true and error description in hear error_in_int_function.
+     *
+     * @param number number by string format
+     * @return long long
+     * @author Tolsedum
+     */
     long long strToLongLong(const std::string &number);
+     /**
+     * @brief String to unsigned long
+     *      If has error then in has_error_in_int_function
+     *      set true and error description in hear error_in_int_function.
+     *
+     * @param number number by string format
+     * @return unsigned long
+     * @author Tolsedum
+     */
     unsigned long strToUnsignedLong(const std::string &number);
+    /**
+     * @brief String to long long
+     *      If has error then in has_error_in_int_function
+     *      set true and error description in hear error_in_int_function.
+     *
+     * @param number number by string format
+     * @return long long
+     * @author Tolsedum
+     */
     unsigned long long strToUnsignedLongLong(const std::string &number);
 
     /**

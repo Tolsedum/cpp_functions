@@ -132,25 +132,42 @@ namespace ufn{
     /**
      * Check upper register in string
     */
-    // void createFileAndDirrs(
-    //     std::string file_path, std::string content = ""
-    // ){
-    //     bool file_is_created = false;
-    //     std::filesystem::path path{file_path};
-    //     if(!std::filesystem::is_directory(path.parent_path())){
-    //         std::filesystem::create_directories(path.parent_path());
-    //     }
-    //     if(!std::filesystem::is_regular_file(path)){
-    //         std::ofstream ofs(path);
-    //         if(ofs.is_open()){
-    //             if(!content.empty()){
-    //                 ofs << content;
-    //             }
-    //             ofs.close();
-    //             file_is_created = true;
-    //         }
-    //     }
-    // }
+    bool createFileAndDirrs(
+        std::string file_path,
+        std::string content
+    ){
+        error_in_function_create_file_and_dir = std::runtime_error("");
+        bool file_is_created = false;
+        try{
+            std::filesystem::path path{file_path};
+            std::string parent_path = path.parent_path();
+            if(
+                !parent_path.empty()
+                && !std::filesystem::is_directory(parent_path)
+            ){
+                std::filesystem::create_directories(parent_path);
+            }
+            if(!std::filesystem::is_regular_file(path)){
+                std::ofstream ofs(path);
+                if(ofs.is_open()){
+                    if(!content.empty()){
+                        ofs << content;
+                    }
+                    ofs.close();
+                    file_is_created = true;
+                }else{
+                    error_in_function_create_file_and_dir =
+                        std::runtime_error("Can`t open file");
+                }
+            }else{
+                error_in_function_create_file_and_dir =
+                    std::runtime_error("File exist");
+            }
+        }catch(const std::exception& e){
+            error_in_function_create_file_and_dir = std::runtime_error(e.what());
+        }
+        return file_is_created;
+    }
 
 
     template <> Converter::operator int() { return std::stoi(x); }
@@ -165,27 +182,27 @@ namespace ufn{
 
     template<typename Numeric>
     Numeric strToNumeric(const std::string &numeric){
-        has_error_in_int_function = false;
-        error_in_int_function = "";
+        has_error_in_converter_function = false;
+        error_in_converter_function = "";
         Numeric num = 0;
         try{
             num = stringTo(numeric);
         }catch(const std::invalid_argument &e){
-            has_error_in_int_function = true;
-            error_in_int_function.append("Invalid argument: ");
-            error_in_int_function.append(e.what());
+            has_error_in_converter_function = true;
+            error_in_converter_function.append("Invalid argument: ");
+            error_in_converter_function.append(e.what());
         }catch(const std::out_of_range &e){
-            has_error_in_int_function = true;
-            error_in_int_function.append("Out of range: ");
-            error_in_int_function.append(e.what());
+            has_error_in_converter_function = true;
+            error_in_converter_function.append("Out of range: ");
+            error_in_converter_function.append(e.what());
         }catch(...){
-            has_error_in_int_function = true;
-            error_in_int_function = "Unexpected error";
+            has_error_in_converter_function = true;
+            error_in_converter_function = "Unexpected error";
         }
         return num;
     }
 
-    int tostrToInt(const std::string &number){
+    int strToInt(const std::string &number){
         return strToNumeric<int>(number);
     }
     double strToDouble(const std::string &number){
