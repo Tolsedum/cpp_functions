@@ -159,9 +159,6 @@ namespace ufn{
                     error_in_function_create_file_and_dir =
                         std::runtime_error("Can`t open file");
                 }
-            }else{
-                error_in_function_create_file_and_dir =
-                    std::runtime_error("File exist");
             }
         }catch(const std::exception& e){
             error_in_function_create_file_and_dir = std::runtime_error(e.what());

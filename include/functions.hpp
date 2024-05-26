@@ -80,6 +80,7 @@ namespace ufn{
      * @author Tolsedum
      */
     int strToInt(const std::string &number);
+
     /**
      * @brief String to double
      *      If has error then in has_error_in_int_function
@@ -90,6 +91,7 @@ namespace ufn{
      * @author Tolsedum
      */
     double strToDouble(const std::string &number);
+
     /**
      * @brief String to float
      *      If has error then in has_error_in_int_function
@@ -100,6 +102,7 @@ namespace ufn{
      * @author Tolsedum
      */
     float strToFloat(const std::string &number);
+
     /**
      * @brief String to long
      *      If has error then in has_error_in_int_function
@@ -110,6 +113,7 @@ namespace ufn{
      * @author Tolsedum
      */
     long strToLong(const std::string &number);
+
     /**
      * @brief String to long double
      *      If has error then in has_error_in_int_function
@@ -120,6 +124,7 @@ namespace ufn{
      * @author Tolsedum
      */
     long double strToLongDouble(const std::string &number);
+
     /**
      * @brief String to long long
      *      If has error then in has_error_in_int_function
@@ -130,6 +135,7 @@ namespace ufn{
      * @author Tolsedum
      */
     long long strToLongLong(const std::string &number);
+
      /**
      * @brief String to unsigned long
      *      If has error then in has_error_in_int_function
@@ -140,6 +146,7 @@ namespace ufn{
      * @author Tolsedum
      */
     unsigned long strToUnsignedLong(const std::string &number);
+
     /**
      * @brief String to long long
      *      If has error then in has_error_in_int_function
@@ -171,11 +178,13 @@ namespace ufn{
      * @author Tolsedum
     */
     std::string getFileContent(const std::string fileName);
+
     /**
-     * Delete commtnts
+     * Delete commtnts teg (#)
      * @author Tolsedum
     */
     std::string deleteComment(const std::string &str);
+
     /**
      * Hash function md5
      * @author Tolsedum
