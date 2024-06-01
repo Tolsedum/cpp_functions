@@ -166,6 +166,16 @@ namespace ufn{
         return file_is_created;
     }
 
+    bool isNumeric(std::string str){
+        return !str.empty()
+            && std::find_if(
+                str.begin(),
+                str.end(),
+                [](unsigned char c){
+                    return !(std::isdigit(c) || c == '.');
+                }
+            ) == str.end();
+    }
 
     template <> Converter::operator int() { return std::stoi(x); }
     template <> Converter::operator double() { return std::stod(x); }
@@ -179,21 +189,21 @@ namespace ufn{
 
     template<typename Numeric>
     Numeric strToNumeric(const std::string &numeric){
-        has_error_in_converter_function = false;
+        has_error_in_converter_function = 0;
         error_in_converter_function = "";
         Numeric num = 0;
         try{
             num = stringTo(numeric);
         }catch(const std::invalid_argument &e){
-            has_error_in_converter_function = true;
+            has_error_in_converter_function = 1;
             error_in_converter_function.append("Invalid argument: ");
             error_in_converter_function.append(e.what());
         }catch(const std::out_of_range &e){
-            has_error_in_converter_function = true;
+            has_error_in_converter_function = 2;
             error_in_converter_function.append("Out of range: ");
             error_in_converter_function.append(e.what());
         }catch(...){
-            has_error_in_converter_function = true;
+            has_error_in_converter_function = 3;
             error_in_converter_function = "Unexpected error";
         }
         return num;

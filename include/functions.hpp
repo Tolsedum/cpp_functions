@@ -1,6 +1,38 @@
 #ifndef FUNCTIONS_HPP
 #define FUNCTIONS_HPP
 
+/**
+ *  __________________________________________
+ * |                                          |
+ * |   ╭━━━━┳━━━┳╮╱╱╭━━━┳━━━┳━━━┳╮╱╭┳━╮╭━╮    |
+ * |   ┃╭╮╭╮┃╭━╮┃┃╱╱┃╭━╮┃╭━━┻╮╭╮┃┃╱┃┃┃╰╯┃┃    |
+ * |   ╰╯┃┃╰┫┃╱┃┃┃╱╱┃╰━━┫╰━━╮┃┃┃┃┃╱┃┃╭╮╭╮┃    |
+ * |   ╱╱┃┃╱┃┃╱┃┃┃╱╭╋━━╮┃╭━━╯┃┃┃┃┃╱┃┃┃┃┃┃┃    |
+ * |   ╱╱┃┃╱┃╰━╯┃╰━╯┃╰━╯┃╰━━┳╯╰╯┃╰━╯┃┃┃┃┃┃    |
+ * |   ╱╱╰╯╱╰━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻╯╰╯╰╯    |
+ * |__________________________________________|
+ * |                                          |
+ * | Permission is hereby granted, free of    |
+ * | charge, to any person obtaining a copy of|
+ * | of this software and accompanying files, |
+ * | to use them without restriction,         |
+ * | including, without limitation, the       |
+ * | rights to use, copy, modify, merge,      |
+ * | publish, distribute, sublicense and/or   |
+ * | sell copies of the software. The authors |
+ * | or copyright holders shall not be liable |
+ * | for any claims, damages or other         |
+ * | liability, whether in contract, tort or  |
+ * | otherwise, arising out of or in          |
+ * | connection with the software or your use |
+ * | or other dealings with the software.     |
+ * |__________________________________________|
+ * |   website: tolsedum.ru                   |
+ * |   email: tolsedum@gmail.com              |
+ * |   email: tolsedum@yandex.ru              |
+ * |__________________________________________|
+ */
+
 #include <vector>
 #include <iostream>
 #include <string>
@@ -68,8 +100,16 @@ namespace ufn{
         template <typename Numeric> operator Numeric() { return 0;}
     };
 
+    /**
+     * @brief Chekc if string is numeric
+     * @param str chekcing string
+     * @return bool if is numeric then true else false
+     * @author Tolsedum
+     */
+    bool isNumeric(std::string str);
+
     inline std::string error_in_converter_function = "";
-    inline bool has_error_in_converter_function = false;
+    inline short has_error_in_converter_function = 0;
     /**
      * @brief String to int
      *      If has error then in has_error_in_int_function

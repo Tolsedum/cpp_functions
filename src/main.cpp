@@ -35,8 +35,12 @@ void trim_and_md5_test(){
 
 /** Create .so lib */
 int main(){
-    if(!ufn::createFileAndDirrs("test.test", "content")){
-        std::cout<< "error_in_function_create_file_and_dir: " << ufn::error_in_function_create_file_and_dir.what() << std::endl;
-    }
+    // if(!ufn::createFileAndDirrs("test.test", "content")){
+    //     std::cout<< "error_in_function_create_file_and_dir: " << ufn::error_in_function_create_file_and_dir.what() << std::endl;
+    // }
+
+    std::cout<< ufn::isNumeric("12.25") <<std::endl;
+    std::cout<< ufn::isNumeric("12.25 ") <<std::endl;
+    std::cout<< ufn::isNumeric("12.25 asd 54") <<std::endl;
     return 0;
 }
