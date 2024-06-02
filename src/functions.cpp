@@ -167,11 +167,18 @@ namespace ufn{
     }
 
     bool isNumeric(std::string str){
+        short count_dot = 0;
         return !str.empty()
             && std::find_if(
                 str.begin(),
                 str.end(),
-                [](unsigned char c){
+                [&count_dot](unsigned char c){
+                    if(c == '.'){
+                        count_dot++;
+                        if(count_dot > 1){
+                            return true;
+                        }
+                    }
                     return !(std::isdigit(c) || c == '.');
                 }
             ) == str.end();
