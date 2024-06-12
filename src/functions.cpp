@@ -301,18 +301,25 @@ namespace ufn{
     }
 
     std::string getFileContent(std::ifstream &file){
-        file.seekg(0, std::ios::end);
-        size_t size = file.tellg();
-        file.seekg(0);
-        std::string ret_value(size, ' ');
-        file.read(&ret_value[0], size);
+        std::string ret_value;
+        if(file.is_open()){
+            file.seekg(0, std::ios::end);
+            size_t size = file.tellg();
+            file.seekg(0);
+            ret_value = std::string(size, ' ');
+            file.read(&ret_value[0], size);
+        }
+
         return ret_value;
     }
 
     std::string getFileContent(const std::string file_name){
-        std::ifstream i_file(file_name);
-        std::string ret_value = getFileContent(i_file);
-        i_file.close();
+        std::string ret_value;
+        if(std::filesystem::exists(file_name)){
+            std::ifstream i_file(file_name);
+            ret_value = getFileContent(i_file);
+            i_file.close();
+        }
         return ret_value;
     }
 
@@ -327,4 +334,12 @@ namespace ufn{
         strftime(buffer, sizeof(buffer), format.c_str(), now);
         return buffer;
     }
-}
+
+    std::string getParentDir(const std::string_view dir){
+        std::string path{dir};
+        path = trim(path, '/');
+        path = path.substr(0, path.find_first_of("/"));
+        std::cout << path <<std::endl;
+        return path;
+    }
+} // namespace ufn

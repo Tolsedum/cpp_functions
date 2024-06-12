@@ -237,6 +237,8 @@ namespace ufn{
     */
     std::string currentDateTime(std::string format = "%d-%m-%Y %X");
 
+    std::string getParentDir(const std::string_view dir);
+
     /**
      * implode Template
      *  @author FGTS45
