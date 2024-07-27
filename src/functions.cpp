@@ -34,7 +34,9 @@ namespace hashes{
 
     static unsigned* MD5Hash(std::string msg){
         int mlen = msg.length();
-        static DigestArray h0 = { 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476 };
+        static DigestArray h0 = {
+            0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476
+        };
         static DgstFctn ff[] = { &func0, &func1, &func2, &func3 };
         static short M[] = { 1, 5, 3, 7 };
         static short O[] = { 0, 1, 5, 0 };
@@ -119,7 +121,14 @@ namespace hashes{
         for (j = 0; j<4; j++){
             u.w = d[j];
             char s[9];
-            sprintf(s, "%02x%02x%02x%02x", u.b[0], u.b[1], u.b[2], u.b[3]);
+            sprintf(
+                s,
+                "%02x%02x%02x%02x",
+                u.b[0],
+                u.b[1],
+                u.b[2],
+                u.b[3]
+            );
             str += s;
         }
 
@@ -136,7 +145,8 @@ namespace ufn{
         std::string file_path,
         std::string content
     ){
-        error_in_function_create_file_and_dir = std::runtime_error("");
+        error_in_function_create_file_and_dir =
+            std::runtime_error("");
         bool file_is_created = false;
         try{
             std::filesystem::path path{file_path};
@@ -161,7 +171,8 @@ namespace ufn{
                 }
             }
         }catch(const std::exception& e){
-            error_in_function_create_file_and_dir = std::runtime_error(e.what());
+            error_in_function_create_file_and_dir =
+                std::runtime_error(e.what());
         }
         return file_is_created;
     }
@@ -184,15 +195,33 @@ namespace ufn{
             ) == str.end();
     }
 
-    template <> Converter::operator int() { return std::stoi(x); }
-    template <> Converter::operator double() { return std::stod(x); }
-    template <> Converter::operator float() { return std::stof(x); }
-    template <> Converter::operator long() { return std::stol(x); }
-    template <> Converter::operator long double() { return std::stold(x); }
-    template <> Converter::operator long long() { return std::stoll(x); }
-    template <> Converter::operator unsigned long() { return std::stoul(x); }
-    template <> Converter::operator unsigned long long() { return std::stoull(x); }
-    inline Converter stringTo(const std::string& x) { return {x}; }
+    template <> Converter::operator int() {
+        return std::stoi(x);
+    }
+    template <> Converter::operator double() {
+        return std::stod(x);
+    }
+    template <> Converter::operator float() {
+        return std::stof(x);
+    }
+    template <> Converter::operator long() {
+        return std::stol(x);
+    }
+    template <> Converter::operator long double() {
+        return std::stold(x);
+    }
+    template <> Converter::operator long long() {
+        return std::stoll(x);
+    }
+    template <> Converter::operator unsigned long() {
+        return std::stoul(x);
+    }
+    template <> Converter::operator unsigned long long() {
+        return std::stoull(x);
+    }
+    inline Converter stringTo(const std::string& x) {
+        return {x};
+    }
 
     template<typename Numeric>
     Numeric strToNumeric(const std::string &numeric){
@@ -237,7 +266,9 @@ namespace ufn{
     unsigned long strToUnsignedLong(const std::string &number){
         return strToNumeric<unsigned long>(number);
     }
-    unsigned long long strToUnsignedLongLong(const std::string &number){
+    unsigned long long strToUnsignedLongLong(
+        const std::string &number
+    ){
         return strToNumeric<unsigned long long>(number);
     }
 
@@ -275,7 +306,9 @@ namespace ufn{
         size_t pos = 0;
         std::string token;
         std::string line_copy = line;
-        while ((pos = line_copy.find(delimiter)) != std::string::npos){
+        while (
+            (pos = line_copy.find(delimiter)) != std::string::npos
+        ){
             token = line_copy.substr(0, pos);
             line_copy.erase(0, pos + delimiter.length());
             ret_value.push_back(token);
@@ -289,13 +322,17 @@ namespace ufn{
     }
 
     std::string trim(std::string patient, char pattern){
-        boost::trim_if(patient, [pattern](char &c){return c == pattern;});
+        boost::trim_if(patient, [pattern](char &c){
+            return c == pattern;
+        });
         return patient;
     }
 
     std::string trim(std::string patient, std::vector<char> pattern){
         for(auto var : pattern){
-            boost::trim_if(patient, [var](char &c){return c == var;});
+            boost::trim_if(patient, [var](char &c){
+                return c == var;
+            });
         }
         return patient;
     }
@@ -335,11 +372,40 @@ namespace ufn{
         return buffer;
     }
 
+    unsigned long getFileCreationDate(const std::string &file_name){
+        struct stat t_stat;
+        stat(file_name.c_str(), &t_stat);
+        return t_stat.st_mtime;
+    }
+
+    std::string convertTimestampDateToString(
+        unsigned long &timestamp,
+        std::string format
+    ){
+        std::time_t temp = timestamp;
+        std::tm* t = std::localtime(&temp);
+        std::stringstream ss;
+        ss << std::put_time(t, format.c_str());
+        return ss.str();
+    }
+
+    unsigned long convertStringDateToTimestamp(
+        const std::string &date,
+        std::string format
+    ){
+        std::tm t{};
+        std::istringstream s_stream(date);
+        s_stream >> std::get_time(&t, format.c_str());
+        if (s_stream.fail()) {
+            throw std::runtime_error{"Failed to parse time string"};
+        }
+        return mktime(&t);
+    }
+
     std::string getParentDir(const std::string_view dir){
         std::string path{dir};
         path = trim(path, '/');
         path = path.substr(0, path.find_first_of("/"));
-        std::cout << path <<std::endl;
         return path;
     }
 } // namespace ufn
