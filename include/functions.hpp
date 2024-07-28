@@ -1,5 +1,6 @@
 #ifndef FUNCTIONS_HPP
 #define FUNCTIONS_HPP
+/** Version 1 */
 
 /**
  *  __________________________________________

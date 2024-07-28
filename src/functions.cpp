@@ -147,34 +147,37 @@ namespace ufn{
     ){
         error_in_function_create_file_and_dir =
             std::runtime_error("");
-        bool file_is_created = false;
+        bool file_exists = true;
         try{
-            std::filesystem::path path{file_path};
-            std::string parent_path = path.parent_path();
-            if(
-                !parent_path.empty()
-                && !std::filesystem::is_directory(parent_path)
-            ){
-                std::filesystem::create_directories(parent_path);
-            }
-            if(!std::filesystem::is_regular_file(path)){
-                std::ofstream ofs(path);
-                if(ofs.is_open()){
-                    if(!content.empty()){
-                        ofs << content;
+            if(!std::filesystem::exists(file_path)){
+                std::filesystem::path path{file_path};
+                std::string parent_path = path.parent_path();
+                if(!parent_path.empty()
+                    && !std::filesystem::exists(parent_path)
+                ){
+                    std::filesystem::create_directories(parent_path);
+                }
+                if(!std::filesystem::is_regular_file(path)){
+                    std::ofstream ofs(path);
+                    if(ofs.is_open()){
+                        if(!content.empty()){
+                            ofs << content;
+                        }
+                        ofs.close();
+
+                    }else{
+                        file_exists = false;
+                        error_in_function_create_file_and_dir =
+                            std::runtime_error("Can`t open file");
                     }
-                    ofs.close();
-                    file_is_created = true;
-                }else{
-                    error_in_function_create_file_and_dir =
-                        std::runtime_error("Can`t open file");
                 }
             }
         }catch(const std::exception& e){
             error_in_function_create_file_and_dir =
                 std::runtime_error(e.what());
+            file_exists = false;
         }
-        return file_is_created;
+        return file_exists;
     }
 
     bool isNumeric(std::string str){

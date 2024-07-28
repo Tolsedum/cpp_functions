@@ -46,17 +46,29 @@ int main(){
     // bool last = ufn::isNumeric("12.25 ");
     // std::cout<< "12.25 : "<< last <<std::endl;
 
-    // ufn::getParentDir("/parent_dir/dir/file_name");
+    // std::string path;
 
-    std::string file_name{"test.test"};
-    auto timestamp = ufn::getFileCreationDate(file_name.c_str());
-    auto date = ufn::convertTimestampDateToString(timestamp);
+    // ufn::getParentDir(
+    //     // "/parent_dir/dir/file_name"
+    //     path
+    // );
 
-    std::cout << "timestamp: " << timestamp <<std::endl;
-    std::cout << "date: " << date <<std::endl;
-    std::cout << "timestamp2: "
-        << ufn::convertStringDateToTimestamp(date)
-    <<std::endl;
+    // std::string file_name{"test.test"};
+    // auto timestamp = ufn::getFileCreationDate(file_name.c_str());
+    // auto date = ufn::convertTimestampDateToString(timestamp);
+
+    // std::cout << "timestamp: " << timestamp <<std::endl;
+    // std::cout << "date: " << date <<std::endl;
+    // std::cout << "timestamp2: "
+    //     << ufn::convertStringDateToTimestamp(date)
+    // <<std::endl;
+
+    if(!ufn::createFileAndDirrs("test/test.log")){
+        std::cout
+            << "Error: "
+            << ufn::error_in_function_create_file_and_dir.what()
+        << std::endl;
+    }
 
     return 0;
 }
