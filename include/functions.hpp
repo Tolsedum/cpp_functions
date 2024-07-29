@@ -105,6 +105,14 @@ namespace ufn{
         const std::string &x;
         template <typename Numeric> operator Numeric() { return 0;}
     };
+    /**
+     * @brief If a type is passed to a number with a
+     *  string type, it returns this type. It is advisable
+     *  to use it after isNumeric
+     * @param numeric
+     * @return numeric type if exists
+    */
+    std::string getNumericType(std::string numeric);
 
     /**
      * @brief Chekc if string is numeric

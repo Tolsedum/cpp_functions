@@ -39,6 +39,20 @@ int main(){
     //     std::cout<< "error_in_function_create_file_and_dir: " << ufn::error_in_function_create_file_and_dir.what() << std::endl;
     // }
 
+    for (auto &&numeric : {
+        "10U", "10UL", "10ULL", "10L", "10LL",
+        "10LLL", "10LU", "10PUL"
+    }){
+        bool is = ufn::isNumeric(numeric);
+        std::cout
+            << numeric
+            << " is numeric: " << is
+            << " type: " << ufn::getNumericType(numeric)
+        << std::endl;
+    }
+
+
+
     // bool first = ufn::isNumeric("1.2.25");
     // std::cout<< "1.2.25: "<< first  <<std::endl;
     // bool second = ufn::isNumeric("12.25");
@@ -63,12 +77,12 @@ int main(){
     //     << ufn::convertStringDateToTimestamp(date)
     // <<std::endl;
 
-    if(!ufn::createFileAndDirrs("test/test.log")){
-        std::cout
-            << "Error: "
-            << ufn::error_in_function_create_file_and_dir.what()
-        << std::endl;
-    }
+    // if(!ufn::createFileAndDirrs("test/test.log")){
+    //     std::cout
+    //         << "Error: "
+    //         << ufn::error_in_function_create_file_and_dir.what()
+    //     << std::endl;
+    // }
 
     return 0;
 }

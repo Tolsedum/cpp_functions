@@ -180,8 +180,42 @@ namespace ufn{
         return file_exists;
     }
 
+    std::string getNumericType(std::string numeric){
+        std::string type;
+        short count = 0;
+
+        for(int i = numeric.size() - 1; i != 0; i--){
+            if(
+                count > 3 || (numeric[i] != 'U' && numeric[i] != 'L')
+            ){
+                break;
+            }else{
+                count++;
+                type = numeric[i] + type;
+            }
+        }
+        if(
+            count > 3
+            || (
+                type != "U"
+                && type != "UL"
+                && type != "ULL"
+                && type != "LL"
+                && type != "L"
+            )
+        ){
+            type.clear();
+        }
+        return type;
+    }
+
     bool isNumeric(std::string str){
         short count_dot = 0;
+        std::string type = getNumericType(str);
+        if(!type.empty()){
+            str.erase(str.size() - type.size());
+        }
+
         return !str.empty()
             && std::find_if(
                 str.begin(),
