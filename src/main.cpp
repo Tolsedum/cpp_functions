@@ -40,12 +40,15 @@ int main(){
     // }
 
     for (auto &&numeric : {
-        "10U", "10UL", "10ULL", "10L", "10LL",
-        "10LLL", "10LU", "10PUL"
+        "-1", "10UL", "10ULL", "10L", "10LL",
+        "10LLL", "10LU", "10PUL", "4294967296"
     }){
         bool is = ufn::isNumeric(numeric);
+
         std::cout
             << numeric
+            << " " << ufn::strToUnsigned(numeric)
+            << " " << ufn::strToInt(numeric)
             << " is numeric: " << is
             << " type: " << ufn::getNumericType(numeric)
         << std::endl;

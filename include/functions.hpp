@@ -158,6 +158,17 @@ namespace ufn{
     float strToFloat(const std::string &number);
 
     /**
+     * @brief String to unsigned
+     *      If has error then in has_error_in_int_function
+     *      set true and error description in hear error_in_int_function.
+     *
+     * @param number number by string format
+     * @return float
+     * @author Tolsedum
+     */
+    unsigned strToUnsigned(const std::string &number);
+
+    /**
      * @brief String to long
      *      If has error then in has_error_in_int_function
      *      set true and error description in hear error_in_int_function.

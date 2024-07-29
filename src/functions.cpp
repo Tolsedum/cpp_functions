@@ -227,7 +227,7 @@ namespace ufn{
                             return true;
                         }
                     }
-                    return !(std::isdigit(c) || c == '.');
+                    return !(std::isdigit(c) || c == '.' || c == '-');
                 }
             ) == str.end();
     }
@@ -243,6 +243,10 @@ namespace ufn{
     }
     template <> Converter::operator long() {
         return std::stol(x);
+    }
+    template <> Converter::operator unsigned int () {
+        unsigned long ul = std::stoul(x);
+        return static_cast<unsigned int>(ul);
     }
     template <> Converter::operator long double() {
         return std::stold(x);
@@ -290,6 +294,9 @@ namespace ufn{
     }
     float strToFloat(const std::string &number){
         return strToNumeric<float>(number);
+    }
+    unsigned strToUnsigned(const std::string &number){
+        return strToNumeric<unsigned>(number);
     }
     long strToLong(const std::string &number){
         return strToNumeric<long>(number);
