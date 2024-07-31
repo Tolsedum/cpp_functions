@@ -40,7 +40,7 @@ int main(){
     // }
 
     for (auto &&numeric : {
-        "-1", "10UL", "10ULL", "10L", "10LL",
+        "-1", "10I", "10UL", "10ULL", "10L", "10LL",
         "10LLL", "10LU", "10PUL", "4294967296"
     }){
         bool is = ufn::isNumeric(numeric);

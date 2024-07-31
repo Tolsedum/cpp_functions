@@ -186,7 +186,13 @@ namespace ufn{
 
         for(int i = numeric.size() - 1; i != 0; i--){
             if(
-                count > 3 || (numeric[i] != 'U' && numeric[i] != 'L')
+                count > 3 || (
+                    numeric[i] != 'U'
+                    && numeric[i] != 'L'
+                    && numeric[i] != 'I'
+                    && numeric[i] != 'F'
+                    && numeric[i] != 'D'
+                )
             ){
                 break;
             }else{
@@ -202,6 +208,9 @@ namespace ufn{
                 && type != "ULL"
                 && type != "LL"
                 && type != "L"
+                && type != "I"
+                && type != "F"
+                && type != "D"
             )
         ){
             type.clear();
