@@ -329,7 +329,11 @@ namespace ufn{
         const std::string &str
     ){
         std::string ret_value;
-        if(size_t pos = str.find('#') != std::string::npos){
+
+        if(
+            size_t pos = str.find('#');
+            pos != std::string::npos
+        ){
             ret_value = str.substr(0, pos - 1);
         }else ret_value = str;
         return ret_value;

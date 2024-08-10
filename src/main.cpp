@@ -36,10 +36,13 @@ void trim_and_md5_test(){
 /** Create .so lib */
 int main(){
 
-    std::string parent_dir =
-        ufn::getParentDir("log/server/request.log");
+    std::string str{"SIZE_FILE_TO_ZIP=1024U #sdfdsf"};
+    std::cout<< ufn::deleteComment(str) << std::endl;
 
-    std::cout<< parent_dir << std::endl;
+    // std::string parent_dir =
+    //     ufn::getParentDir("log/server/request.log");
+
+    // std::cout<< parent_dir << std::endl;
 
     // if(!ufn::createFileAndDirrs("test.test", "content")){
     //     std::cout<< "error_in_function_create_file_and_dir: " << ufn::error_in_function_create_file_and_dir.what() << std::endl;
