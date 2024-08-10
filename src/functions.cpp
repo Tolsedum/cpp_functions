@@ -458,7 +458,7 @@ namespace ufn{
     std::string getParentDir(const std::string_view dir){
         std::string path{dir};
         path = trim(path, '/');
-        path = path.substr(0, path.find_first_of("/"));
+        path = path.substr(0, path.find_last_of("/"));
         return path;
     }
 } // namespace ufn

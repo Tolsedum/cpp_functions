@@ -35,24 +35,30 @@ void trim_and_md5_test(){
 
 /** Create .so lib */
 int main(){
+
+    std::string parent_dir =
+        ufn::getParentDir("log/server/request.log");
+
+    std::cout<< parent_dir << std::endl;
+
     // if(!ufn::createFileAndDirrs("test.test", "content")){
     //     std::cout<< "error_in_function_create_file_and_dir: " << ufn::error_in_function_create_file_and_dir.what() << std::endl;
     // }
 
-    for (auto &&numeric : {
-        "-1", "10I", "10UL", "10ULL", "10L", "10LL",
-        "10LLL", "10LU", "10PUL", "4294967296"
-    }){
-        bool is = ufn::isNumeric(numeric);
+    // for (auto &&numeric : {
+    //     "-1", "10I", "10UL", "10ULL", "10L", "10LL",
+    //     "10LLL", "10LU", "10PUL", "4294967296"
+    // }){
+    //     bool is = ufn::isNumeric(numeric);
 
-        std::cout
-            << numeric
-            << " " << ufn::strToUnsigned(numeric)
-            << " " << ufn::strToInt(numeric)
-            << " is numeric: " << is
-            << " type: " << ufn::getNumericType(numeric)
-        << std::endl;
-    }
+    //     std::cout
+    //         << numeric
+    //         << " " << ufn::strToUnsigned(numeric)
+    //         << " " << ufn::strToInt(numeric)
+    //         << " is numeric: " << is
+    //         << " type: " << ufn::getNumericType(numeric)
+    //     << std::endl;
+    // }
 
 
 
