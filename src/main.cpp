@@ -36,8 +36,14 @@ void trim_and_md5_test(){
 /** Create .so lib */
 int main(){
 
-    std::string str{"SIZE_FILE_TO_ZIP=1024U #sdfdsf"};
-    std::cout<< ufn::deleteComment(str) << std::endl;
+    std::string_view host{"www.test.ru"};
+    std::string host_redirect(host.begin(), host.end());
+    std::cout<< "host_redirect: " << host_redirect << std::endl;
+    host_redirect = host_redirect.substr(4);
+    std::cout<< "host_redirect: " << host_redirect << std::endl;
+
+    // std::string str{"SIZE_FILE_TO_ZIP=1024UL#8600"};
+    // std::cout<< ufn::deleteComment(str) << std::endl;
 
     // std::string parent_dir =
     //     ufn::getParentDir("log/server/request.log");

@@ -334,7 +334,7 @@ namespace ufn{
             size_t pos = str.find('#');
             pos != std::string::npos
         ){
-            ret_value = str.substr(0, pos - 1);
+            ret_value = str.substr(0, pos);
         }else ret_value = str;
         return ret_value;
     }
@@ -439,6 +439,15 @@ namespace ufn{
         unsigned long &timestamp,
         std::string format
     ){
+        if(timestamp > 9999999999){
+            if(timestamp > 999999999999){
+                timestamp = timestamp/1000;
+            }else if(timestamp > 99999999999){
+                timestamp = timestamp/100;
+            }else{
+                timestamp = timestamp/10;
+            }
+        }
         std::time_t temp = timestamp;
         std::tm* t = std::localtime(&temp);
         std::stringstream ss;
