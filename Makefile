@@ -7,7 +7,9 @@
 CXX = g++
 
 # define any compile-time flags
-CXXFLAGS	:= -std=c++20 -Wall -Wextra -g -ggdb
+CXXFLAGS	:= -std=c++20 -Wall -Wextra -g -ggdb -static
+# CXXFLAGS	:= -std=c++20 -Wall -Wextra -static -fPIC
+# ar -src output/lib/libfunctions.a src/functions.o
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify

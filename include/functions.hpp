@@ -1,6 +1,6 @@
 #ifndef FUNCTIONS_HPP
 #define FUNCTIONS_HPP
-/** Version 1.3 */
+/** Version 1.5 */
 
 /**
  *  __________________________________________
@@ -65,6 +65,14 @@ namespace hashes{
  * @author Tolsedum
 */
 namespace ufn{
+
+    /**
+     * @brief Check string to date format
+     * @author Tolsedum
+     * @param str_date
+     * @return If str_date is date then true else false
+     */
+    bool isDate(const std::string& str_date);
 
     inline std::runtime_error
         error_in_function_create_file_and_dir("");
@@ -226,12 +234,22 @@ namespace ufn{
     );
 
     /**
-     * exploed string to vector conteiner
+     * explode string to vector conteiner
      * @author Tolsedum
     */
-    std::vector<std::string> exploed(
+    std::vector<std::string> explode(
         const std::string &line,
         const std::string &delimiter
+    );
+
+    /**
+     * explode string to vector conteiner
+     * @author Tolsedum
+    */
+    std::vector<std::string> explode(
+        const std::string &line,
+        const std::string &delimiter,
+        const std::function<void(std::string&)>&
     );
 
     /**
@@ -308,7 +326,8 @@ namespace ufn{
     */
     template<class TConteiner, class TValue>
     bool inArray (TConteiner array, TValue value){
-        return std::find(array.begin(), array.end(), value) != array.end();
+        return std::find(
+            array.begin(), array.end(), value) != array.end();
     }
  };
 #endif // !FUNCTIONS_HPP

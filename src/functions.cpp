@@ -138,33 +138,61 @@ namespace hashes{
 
 namespace ufn{
 
-    /**
-     * Check upper register in string
-    */
+
+    bool isDate(const std::string &str_date){
+        char dash;
+        std::stringstream ss(str_date);
+
+        struct tm date;
+        struct tm newDate;
+
+        ss >>
+            date.tm_year
+            >> dash
+            >> date.tm_mon
+            >> dash
+            >> date.tm_mday;
+
+        date.tm_year -= 1900;
+        date.tm_mon -= 1;
+        date.tm_hour = 1;            // Hour
+        date.tm_min = 0;             // Minute
+        date.tm_sec = 0;             // Second
+
+        newDate = date;
+        mktime(&newDate);
+        if (
+            date.tm_year == newDate.tm_year &&
+            date.tm_mon == newDate.tm_mon   &&
+            date.tm_mday == newDate.tm_mday
+        )
+            return true;
+        return false;
+    }
+
+    // ToDo Create file object and relocate this function
     bool createFileAndDirrs(
-        std::string file_path,
-        std::string content
+        std::string file_path, std::string content
     ){
         error_in_function_create_file_and_dir =
             std::runtime_error("");
         bool file_exists = true;
         try{
-            if(!std::filesystem::exists(file_path)){
+            if (!std::filesystem::exists(file_path)){
                 std::filesystem::path path{file_path};
                 std::string parent_path = path.parent_path();
-                if(!parent_path.empty()
+                if (!parent_path.empty()
                     && !std::filesystem::exists(parent_path)
                 ){
                     std::filesystem::create_directories(parent_path);
                 }
-                if(!std::filesystem::is_regular_file(path)){
+                if (!std::filesystem::is_regular_file(path)){
                     std::ofstream ofs(path);
-                    if(ofs.is_open()){
-                        if(!content.empty()){
+                    if (ofs.is_open()){
+                        if (!content.empty()){
                             ofs << content;
                         }
                         ofs.close();
-
                     }else{
                         file_exists = false;
                         error_in_function_create_file_and_dir =
@@ -172,7 +200,7 @@ namespace ufn{
                     }
                 }
             }
-        }catch(const std::exception& e){
+        }catch (const std::exception &e){
             error_in_function_create_file_and_dir =
                 std::runtime_error(e.what());
             file_exists = false;
@@ -340,10 +368,9 @@ namespace ufn{
     }
 
     bool hasUpperRegister(std::string line){
-        for (auto const &var : line){
+        for (auto const &var : line)
             if (std::isupper(var))
                 return true;
-        }
         return false;
     }
 
@@ -355,7 +382,7 @@ namespace ufn{
             return new_s;
     }
 
-    std::vector<std::string> exploed(
+    std::vector<std::string> explode(
         const std::string &line,
         const std::string &delimiter
     ){
@@ -374,15 +401,38 @@ namespace ufn{
         return ret_value;
     }
 
+    std::vector<std::string> explode(
+        const std::string &line,
+        const std::string &delimiter,
+        const std::function<void(std::string&)>&f
+    ){
+        std::vector<std::string> ret_value;
+        size_t pos = 0;
+        std::string token;
+        std::string line_copy = line;
+        while (
+            (pos = line_copy.find(delimiter)) != std::string::npos
+        ){
+            token = line_copy.substr(0, pos);
+            line_copy.erase(0, pos + delimiter.length());
+            f(token);
+            ret_value.push_back(token);
+        }
+        f(line_copy);
+        ret_value.push_back(line_copy);
+        return ret_value;
+    }
+
+    // ? Оно вообще зачем
     bool isSymb(char c, char p){
         return c == p;
     }
 
-    std::string trim(std::string patient, char pattern){
-        boost::trim_if(patient, [pattern](char &c){
+    std::string trim(std::string str, char pattern){
+        boost::trim_if(str, [pattern](char &c){
             return c == pattern;
         });
-        return patient;
+        return str;
     }
 
     std::string trim(std::string patient, std::vector<char> pattern){
@@ -440,13 +490,7 @@ namespace ufn{
         std::string format
     ){
         if(timestamp > 9999999999){
-            if(timestamp > 999999999999){
-                timestamp = timestamp/1000;
-            }else if(timestamp > 99999999999){
-                timestamp = timestamp/100;
-            }else{
-                timestamp = timestamp/10;
-            }
+            timestamp = timestamp/1000;
         }
         std::time_t temp = timestamp;
         std::tm* t = std::localtime(&temp);
@@ -470,8 +514,9 @@ namespace ufn{
 
     std::string getParentDir(const std::string_view dir){
         std::string path{dir};
-        path = trim(path, '/');
-        path = path.substr(0, path.find_last_of("/"));
-        return path;
+        return trim(path, '/').substr(0, path.find_last_of("/"));
+        // path = path.substr(0, path.find_last_of("/"));
+        // return path;
     }
+
 } // namespace ufn
